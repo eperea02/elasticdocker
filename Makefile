@@ -75,6 +75,9 @@ prune:			## Remove ELK Containers and Delete ELK-related Volume Data (the elasti
 	@make stop && make rm
 	@docker volume prune -f --filter label=com.docker.compose.project=elastic
 
+kompose:		## Make kubernetes kompose files
+	kompose convert -o .k8s
+
 help:       	## Show this help.
 	@echo "Make Application Docker Images and Containers using Docker-Compose files in 'docker' Dir."
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m (default: help)\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
